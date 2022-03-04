@@ -11,7 +11,6 @@ app.use(express.static('public'));
 // GET quotes
 app.get("/api/quotes", (req, res,next) => {
     const person = req.query.person;
-    console.log(person);
     // GET quote by author
     if (person) {
         const filteredQuotes = quotes.filter(item => {
@@ -36,6 +35,19 @@ app.get("/api/quotes/random", (req, res, next) => {
         quote: getRandomElement(quotes)
     };
     res.send(quote);
+});
+
+//POST quotes
+app.post("/api/quotes", (req, res, next) => {
+    const quote = req.query;
+    if (quote.quote && quote.person) {
+        quotes.push(quote);
+        res.send({
+            quote: quote
+        })
+    } else {
+        res.status(400).send();
+    }
 });
 
 
