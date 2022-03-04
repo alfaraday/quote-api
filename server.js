@@ -8,12 +8,26 @@ const PORT = process.env.PORT || 4001;
 
 app.use(express.static('public'));
 
-// GET all quotes
+// GET quotes
 app.get("/api/quotes", (req, res,next) => {
-    const allQuotes = {
-        quotes: quotes
+    const person = req.query.person;
+    console.log(person);
+    // GET quote by author
+    if (person) {
+        const filteredQuotes = quotes.filter(item => {
+            return item.person == person;
+        });
+        res.send({
+            quotes: filteredQuotes
+        });
+    } 
+    // GET all quotes
+    else {
+        res.send({
+            quotes: quotes
+        });
     }
-    res.send(allQuotes);
+    
 });
 
 // GET random quote
