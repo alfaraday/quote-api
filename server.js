@@ -8,6 +8,13 @@ const PORT = process.env.PORT || 4001;
 
 app.use(express.static('public'));
 
+// GET all quotes
+app.get("/api/quotes", (req, res,next) => {
+    const allQuotes = {
+        quotes: quotes
+    }
+    res.send(allQuotes);
+});
 
 // GET random quote
 app.get("/api/quotes/random", (req, res, next) => {
